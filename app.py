@@ -14,7 +14,7 @@ def login():
 
         db = Db()
         res = db.selectOne("select * from login where user_name = '"+uname+"' and password = '"+password+"' ")
-        print(res)
+
 
         if res is not None:
             if res['user_type'] == 'admin':
@@ -41,7 +41,7 @@ def login():
 
 @app.route('/view_approved_center')
 def view_approved_center():
-    qry = "select *from center"
+    qry = "select *from center where status ='pending'"
     obj = Db()
     res = obj.select(qry)
     return render_template("admin/Approve Center.html",res=res)
@@ -144,7 +144,9 @@ def home():
 def approve_center(center_id):
     db = Db()
     db.update("update login set user_type = 'center' where login_id='"+center_id+"' ")
-    return "OK"
+    db.update("update center set status = 'approved' where center_id='" + center_id + "' ")
+
+    return render_template("admin\Approve Center.html")
     # return render_template("admin/admin home.html")
 @app.route('/reject_center/<center_id>')
 def reject_center(center_id):
