@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="get"><table  border="03">
+  <tr>
+    <td>@#</td>
+    <td>Date</td>
+    <td><p>User Name</p></td>
+    <td>Complaint</td>
+    <td>status&nbsp;</td>
+      <td></td>
+  </tr>
+   {% for i in res %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>&nbsp;&nbsp;{{ i['complaint_date'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['user_name'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['complaint'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['status'] }}</td>
+
+
+
+    <td><a href="/complaint_replay/{{ i['compaint_id'] }}">REPLY</a></td>
+  </tr>
+    {% endfor %}
+</table>
+
+</form>
+</body>
+</html>
