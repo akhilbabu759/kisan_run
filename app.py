@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request
+from flask import Flask, render_template, request, redirect
 from DBConnection import Db
 import datetime
 
@@ -18,11 +18,11 @@ def login():
 
         if res is not None:
             if res['user_type'] == 'admin':
-                return render_template('admin/admin home.html')
+                return redirect('/home')
             elif res['user_type'] == 'center':
-                return render_template('center/center_home.html')
-            elif res['user_type'] == 'user':
-                return render_template('center/center_home.html')
+                 return redirect('/center_home')
+            # elif res['user_type'] == 'user':
+            #     return render_template('center/center_home.html')
 
             else:
                 return "invalid user type"
@@ -44,7 +44,7 @@ def view_approved_center():
     qry = "select *from center where status ='pending'"
     obj = Db()
     res = obj.select(qry)
-    return render_template("admin/Approve Center.html",res=res)
+    return render_template("admin/Approve Center.html", res=res)
 
 @app.route('/approved_center_view')
 def approved_center_view():
@@ -146,13 +146,76 @@ def approve_center(center_id):
     db.update("update login set user_type = 'center' where login_id='"+center_id+"' ")
     db.update("update center set status = 'approved' where center_id='" + center_id + "' ")
 
-    return render_template("admin\Approve Center.html")
+    return 'ok'
     # return render_template("admin/admin home.html")
 @app.route('/reject_center/<center_id>')
 def reject_center(center_id):
     db = Db()
     db.delete("DELETE FROM center where center_id ='"+center_id+"' ")
     return "OK"
+
+##CENTER
+
+
+@app.route('/center_registration',methods=['GET','POST'])
+def center_registration():
+    if request.method=='POST':
+        name=request.form['abc']
+        street=request.form['str']
+        locality=request.form['local']
+        district=request.form['district']
+        phn=request.form['ph']
+        email=request.form['eml']
+        db=Db()
+        db.insert("insert into center values('','"+name+"','"+street+"','"+locality+"','"+district+"','"+phn+"','"+email+"')")
+        return ''' <script> alert("Send Sucessfully");window.location = "/"  </script>'''
+
+
+    else:
+        return render_template('center/center_registraction.html')
+
+
+@app.route('/center_view')
+def center_view():
+   return render_template('center/center profile view.html')
+
+
+
+@app.route('/center_home')
+def center_home():
+    return render_template("center/center home.html")
+
+
+
+@app.route('/notification')
+def notification():
+   return render_template('center/notification.html')
+
+
+
+@app.route('/query')
+def query():
+    qry = "select * from query,user where query.user_id=user.user_id;"
+    obj = Db()
+    res = obj.select(qry)
+    return render_template("center/Query view.html",res=res)
+
+@app.route('/query_reply/<Q_id>',methods=['GET','POST'])
+def query_reply(Q_id):
+    if request.method=="POST":
+        reply=request.form['textarea']
+        db = Db()
+        db.update("update query set reply = '"+reply+"', reply_date=curdate() where q_id = '"+Q_id+"'")
+        return ''' <script> alert("Send Sucessfully");window.location = "/query"  </script>'''
+    else:
+        return render_template("center/Query reply.html")
+
+#@app.route('/qu_reply/<Q_id>',methods=['GET','POST'])
+#def query_reply(Q_id):
+    #return render_template("center/Query reply.html")
+
+
+
 
 
 
