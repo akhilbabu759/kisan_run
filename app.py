@@ -179,12 +179,12 @@ def center_registration():
         return render_template('center/center_registraction.html')
 
 
-@app.route('/center_view')
-def center_view():
+@app.route('/center_view/<c_id>')
+def center_view(c_id):
     obj=Db()
-    qry="select * from center"
+    qry="select * from center where c_id=c_id"
 
-    res = obj.select(qry)
+    res = obj.selectOne(qry)
     print(res)
     return render_template('center/center profile view.html', res=res)
 
@@ -223,8 +223,31 @@ def query_reply(Q_id):
 #def query_reply(Q_id):
     #return render_template("center/Query reply.html")
 
+@app.route('/center_update/<c_id>',methods=['GET','POST'])
+def center_update(c_id):
+    db = Db()
+    qry = "select * from center where c_id=c_id"
+    res=db.selectOne(qry)
+
+    if request.method=='POST':
+        name=request.form['abc']
+        street=request.form['str']
+        locality=request.form['local']
+        district=request.form['district']
+        phn=request.form['ph']
+        email=request.form['eml']
+        passw= request.form['pas']
 
 
+
+        db.update("update center set c_name = '"+name+"',street='"+street+"',locality='"+locality+"',district='"+district+"',phone_no='"+phn+"',email='"+email+"' where c_id ='"+c_id+"'")
+        db.update("update login set user_name = '" + name + "',password='"+passw+"' where login_id='"+c_id+"'")
+        return ''' <script> alert("Send Sucessfully");window.location = "/"  </script>'''
+
+
+    else:
+
+        return render_template('center/update_center.html',res=res)
 
 
 

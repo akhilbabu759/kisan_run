@@ -6,29 +6,54 @@
 </head>
 
 <body>
-<form id="form1" name="form1" method="post" action="">
-  <table  border="03">
-    <tr>
-      <td>#</td>
-        <td>center name</td>
 
-      <td>Street</td>
-      <td>Locality</td>
-      <td>District</td>
-      <td>Ph No</td>
-        <td>email</td>
-    </tr>
-          {% for i in res %}
-         <tr>
-          <td>&nbsp;{{ loop.index }}</td>
-          <td>&nbsp;{{ i['c_name'] }}</td>
-          <td>&nbsp;&nbsp;{{ i['street'] }}</td>
-          <td>&nbsp;&nbsp;{{ i['locality'] }}</td>
-          <td>&nbsp;{{ i['district'] }}</td>
-          <td>&nbsp;&nbsp;{{ i['phone_no'] }}</td>
-          <td>&nbsp;&nbsp;{{ i['email'] }}</td>
-         </tr>
-         {% endfor %}
+   <form >
+    <table border="03">
+      <tr><td>
+        <label ><b>Center Name</b></label>
+        </td>
+        <td>{{ res['c_name'] }} </td></tr>
+      <tr><td>
+        <label ><b>Street</b></label>
+        </td>
+        <td>{{ res['street'] }}
+        </td></tr>
+      <tr><td>
+        <label ><b>Locality</b></label>
+        </td>
+        <td>{{ res['locality'] }}
+        </td></tr>
+      <tr><td>
+        <label ><b>District</b></label>
+        </td>
+        <td>{{ res['district'] }}
+
+        </td></tr>
+      <tr><td>
+        <label ><b>Phone No</b></label>
+        </td>
+        <td>{{ res['phone_no'] }}
+
+        </td>
+
+        <tr><td>
+          <label ><b>Email</b></label>
+          </td>
+          <td>{{ res['email'] }}
+
+          </td>
+          </tr>
+
+      <tr>
+        <td colspan="2"><blockquote>
+          <blockquote>
+            <blockquote>
+              <p>
+                <a href="/center_update/{{ res['c_id'] }}">change details</a>
+              </p>
+            </blockquote>
+          </blockquote>
+        </blockquote></td>
     </table>
   </form>
 </blockquote>
