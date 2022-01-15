@@ -10,14 +10,16 @@
 <table  border="03">
   <tr>
     <td>#</td>
-    <td>rating</td>
+
       <td>user name</td>
+       <td>rating</td>
   </tr>
    {% for i in data %}
     <tr>
       <td>{{ loop.index }}</td>
-        <td>&nbsp;&nbsp;{{ i['rating'] }}</td>
+
       <td>&nbsp;&nbsp;{{ i['user_name'] }}</td>
+     <td>&nbsp;&nbsp;{{ i['rating'] }}</td>
 
     </tr>
       {% endfor %}

@@ -10,26 +10,30 @@
 <table  border="03">
   <tr>
     <td>#</td>
-    <td>Master Id</td>
+{#    <td>Master Id</td>#}
     <td>User name</td>
      <td>Amount</td>
     <td>Date</td>
-     <td>Status</td>
+{#     <td>Status</td>#}
      <td>&nbsp;</td>
     
   </tr>
   {% for i in res %}
   <tr>
     <td>&nbsp;{{ loop.index }}</td>
-    <td>&nbsp;{{ i['master_id'] }}</td>
+{#    <td>&nbsp;{{ i['master_id'] }}</td>#}
     <td>&nbsp;&nbsp;{{ i['user_name'] }}</td>
      <td>&nbsp;&nbsp;{{ i['amount'] }}</td>
     <td>&nbsp;&nbsp;{{ i['date'] }}</td>
-     <td>&nbsp;&nbsp;{{ i['status'] }}</td>
+{#     <td>&nbsp;&nbsp;{{ i['status'] }}</td>#}
 
 
 
-     <td><a href="/booking_master_report/{{ i['master_id'] }}">REPORT</a></td>
+     <td>
+         {% if i['report']=='pending' %}<a href="/booking_master_report/{{ i['master_id'] }}">REPORT</a>
+     {% else %}<a href="{{ i['report'] }}">view report </a>
+         {% endif %}
+     </td>
     
   </tr>
     {% endfor %}

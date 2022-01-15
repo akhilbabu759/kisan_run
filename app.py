@@ -41,14 +41,14 @@ def login():
 
 @app.route('/view_approved_center')
 def view_approved_center():
-    qry = "select *from center where status ='pending'"
+    qry = "select *from center "
     obj = Db()
     res = obj.select(qry)
     return render_template("admin/Approve Center.html", res=res)
 
-@app.route('/approved_center_view')
+@app.route('/approved_center_view')########################################
 def approved_center_view():
-    qry = "select *from center"
+    qry = "select *from center where status='pending'"
     obj = Db()
     res = obj.select(qry)
     return render_template("admin/Approved Center View.html",res=res)
@@ -143,15 +143,15 @@ def home():
 @app.route('/approve_center/<center_id>')
 def approve_center(center_id):
     db = Db()
-    db.update("update login set user_type = 'center' where login_id='"+center_id+"' ")
-    db.update("update center set status = 'approved' where center_id='" + center_id + "' ")
+    ##db.update("update center set status = 'center' where c_id='"+center_id+"' ")
+    db.update("update center set status = 'approved' where c_id='" + center_id + "' ")
 
     return 'ok'
     # return render_template("admin/admin home.html")
 @app.route('/reject_center/<center_id>')
 def reject_center(center_id):
     db = Db()
-    db.delete("DELETE FROM center where center_id ='"+center_id+"' ")
+    db.delete("DELETE FROM center where c_id ='"+center_id+"' ")
     return "OK"
 
 ##CENTER
@@ -166,8 +166,12 @@ def center_registration():
         district=request.form['district']
         phn=request.form['ph']
         email=request.form['eml']
+        passw= request.form['pas']
         db=Db()
-        db.insert("insert into center values('','"+name+"','"+street+"','"+locality+"','"+district+"','"+phn+"','"+email+"')")
+        pen="pending"
+        ce="center"
+        db.insert("insert into center VALUE ('','"+name+"','"+street+"','"+locality+"','"+district+"','"+phn+"','"+email+"','"+pen+"')")
+        db.insert("insert into login VALUE('','"+name+"','"+passw+"','"+ce+"')")
         return ''' <script> alert("Send Sucessfully");window.location = "/"  </script>'''
 
 
@@ -177,7 +181,12 @@ def center_registration():
 
 @app.route('/center_view')
 def center_view():
-   return render_template('center/center profile view.html')
+    obj=Db()
+    qry="select * from center"
+
+    res = obj.select(qry)
+    print(res)
+    return render_template('center/center profile view.html', res=res)
 
 
 

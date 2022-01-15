@@ -23,14 +23,14 @@
 
               <tr>
                   <td>{{ loop.index }}</td>
-                  <td>&nbsp;&nbsp;{{ i['center_name'] }}</td>
+                  <td>&nbsp;&nbsp;{{ i['c_name'] }}</td>
                   <td>&nbsp;&nbsp;{{ i['street'] }}</td>
                   <td>&nbsp;&nbsp;{{ i['locality'] }}</td>
                   <td>&nbsp;&nbsp;{{ i['district'] }}</td>
                   <td>&nbsp;&nbsp;{{ i['phone_no'] }}</td>
                   <td>&nbsp;&nbsp;{{ i['email'] }}</td>
-                  <td><a href="/approve_center/{{ i['center_id'] }}">Approve</a></td>
-                  <td><a href="/reject_center/{{ i['center_id'] }}">Reject</a></td>
+                  <td><a href="/approve_center/{{ i['c_id'] }}">Approve</a></td>
+                  <td><a href="/reject_center/{{ i['c_id'] }}">Reject</a></td>
               </tr>
 
       {% endfor %}

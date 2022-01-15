@@ -12,7 +12,7 @@
     <td>Date</td>
     <td><p>User Name</p></td>
     <td>Complaint</td>
-    <td>status&nbsp;</td>
+{#    <td>status&nbsp;</td>#}
       <td></td>
   </tr>
    {% for i in res %}
@@ -21,11 +21,16 @@
       <td>&nbsp;&nbsp;{{ i['complaint_date'] }}</td>
       <td>&nbsp;&nbsp;{{ i['user_name'] }}</td>
       <td>&nbsp;&nbsp;{{ i['complaint'] }}</td>
-      <td>&nbsp;&nbsp;{{ i['status'] }}</td>
+{#      <td>&nbsp;&nbsp;{{ i['status'] }}</td>#}
+
+     <td>
+         {% if i['reply']=='pending' %}<a href="/complaint_replay/{{ i['compaint_id'] }}">REPLY</a>
+    {% else %}{{ i['reply'] }}
+         {% endif %}
+     </td>
 
 
-
-    <td><a href="/complaint_replay/{{ i['compaint_id'] }}">REPLY</a></td>
+{#    <td><a href="/complaint_replay/{{ i['compaint_id'] }}">REPLY</a></td>#}
   </tr>
     {% endfor %}
 </table>
