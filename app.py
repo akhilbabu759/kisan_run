@@ -240,6 +240,7 @@ def center_update(c_id):
 
 
 
+
         db.update("update center set c_name = '"+name+"',street='"+street+"',locality='"+locality+"',district='"+district+"',phone_no='"+phn+"',email='"+email+"' where c_id ='"+c_id+"'")
         db.update("update login set user_name = '" + name + "',password='"+passw+"' where login_id='"+c_id+"'")
         return ''' <script> alert("Send Sucessfully");window.location = "/"  </script>'''

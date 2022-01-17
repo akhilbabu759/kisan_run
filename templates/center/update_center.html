@@ -6,24 +6,24 @@
 </head>
 
 <body>
- <form action="/center_update" method="post" >
+ <form action="/center_update" method="POST" >
         
          
           <table> 
               <tr><td>
                 <label ><b>Center Name</b></label>
               </td>
-              <td> <input type="text" placeholder={{ res['c_name'] }}>
+              <td> <input type="text" name="abc" placeholder={{ res['c_name'] }}>
               </td></tr>
               <tr><td>
                 <label ><b>Street</b></label>
               </td>
-              <td> <input type="text" placeholder={{ res['street'] }}>
+              <td> <input type="text" name="str" placeholder={{ res['street'] }}>
               </td></tr>
               <tr><td>
                 <label ><b>Locality</b></label>
               </td>
-              <td> <input type="text" placeholder={{ res['locality'] }}>
+              <td> <input type="text" name="local" placeholder={{ res['locality'] }}>
               </td></tr>
               <tr><td>
                 <label ><b>District</b></label>
@@ -50,14 +50,14 @@
                 <label ><b>Phone No</b></label>
               </td>
             <td>
-                <input type="text" placeholder={{ res['phone_no'] }} >
+                <input type="text" name="ph" placeholder={{ res['phone_no'] }} >
             </td>
              
               <tr><td>
                 <label ><b>Email</b></label>
               </td>
             <td>
-                <input type="text" placeholder={{ res['email'] }} >
+                <input type="text" name="eml" placeholder={{ res['email'] }} >
             </td>
             </tr>
               <tr>
@@ -65,7 +65,7 @@
                 <label ><b>Password</b></label>
             </td>
             <td>
-                <input type="password" placeholder="Enter Password" >
+                <input type="password" name="pas" placeholder="Enter Password" >
 
             </td>
         </tr>
