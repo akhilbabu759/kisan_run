@@ -185,7 +185,7 @@ def center_view(c_id):
     qry="select * from center where c_id=c_id"
 
     res = obj.selectOne(qry)
-    print(res)
+
     return render_template('center/center profile view.html', res=res)
 
 
@@ -228,7 +228,6 @@ def center_update(c_id):
     db = Db()
     qry = "select * from center where c_id=c_id"
     res=db.selectOne(qry)
-
     if request.method=='POST':
         name=request.form['abc']
         street=request.form['str']
@@ -237,10 +236,6 @@ def center_update(c_id):
         phn=request.form['ph']
         email=request.form['eml']
         passw= request.form['pas']
-
-
-
-
         db.update("update center set c_name = '"+name+"',street='"+street+"',locality='"+locality+"',district='"+district+"',phone_no='"+phn+"',email='"+email+"' where c_id ='"+c_id+"'")
         db.update("update login set user_name = '" + name + "',password='"+passw+"' where login_id='"+c_id+"'")
         return ''' <script> alert("Send Sucessfully");window.location = "/"  </script>'''

@@ -6,7 +6,7 @@
 </head>
 
 <body>
- <form action="/center_update" method="POST" >
+ <form action="/center_update" method="post" >
         
          
           <table> 
@@ -60,7 +60,7 @@
                 <input type="text" name="eml" placeholder={{ res['email'] }} >
             </td>
             </tr>
-              <tr>
+            <tr>
             <td>
                 <label ><b>Password</b></label>
             </td>
@@ -68,18 +68,18 @@
                 <input type="password" name="pas" placeholder="Enter Password" >
 
             </td>
-        </tr>
-
-         <tr>
-        <td colspan="2"><blockquote>
+            </tr>
+             <tr>
+                <td colspan="2"><blockquote>
           <blockquote>
             <blockquote>
               <p>
-                <input type="submit" name="button" id="button" value="submit" />
+               <a href="/center_update/{{ res['c_id'] }}"> <input type="submit" name="button" id="button" value="submit" /></a>
               </p>
             </blockquote>
           </blockquote>
-        </blockquote></td></tr>
+        </blockquote></td>
+        </tr>
         </table>
       
       
