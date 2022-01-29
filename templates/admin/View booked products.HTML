@@ -11,23 +11,23 @@
   <tr>
     <td>#</td>
 
-    <td>user name</td>
-{#     <td>Product Name </td>#}
-{#    <td>Quantity</td>#}
-     <td>Date</td>
+{#    <td>user name</td>#}
+     <td>Product Name </td>
+    <td>Quantity</td>
+{#     <td>Date</td>#}
      <td>Amount</td>
-      <td></td>
+      <td>Total Amount</td>
     
   </tr>
    {% for i in res %}
     <tr>
       <td>{{ loop.index }}</td>
-      <td>&nbsp;&nbsp;{{ i['user_name'] }}</td>
-{#      <td>&nbsp;&nbsp;{{ i['product_name'] }}</td>#}
-{#      <td>&nbsp;&nbsp;{{ i['quantity'] }}</td>#}
-      <td>&nbsp;&nbsp;{{ i['date'] }}</td>
-      <td>&nbsp;&nbsp;{{ i['amount'] }}</td>
-        <td><a href="/view_booked_products/{{ i['master_id'] }}">View Products</a></td>
+      <td>&nbsp;&nbsp;{{ i['product_name'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['price'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['quantity'] }}</td>
+{#      <td>&nbsp;&nbsp;{{ i['date'] }}</td>#}
+      <td>&nbsp;<font color="red" ><h3>{{ i['sum'] }} /-</h3></font></td>
+{#        <td><a href="/view_products/{{ i['master_id'] }}">View Products</a></td>#}
 
 
 

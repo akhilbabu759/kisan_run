@@ -6,7 +6,7 @@
 </head>
 
 <body>
- <form action="/center_update" method="post" >
+ <form action="/center_update/{{ res['c_id'] }}" method="post" >
         
          
           <table> 
@@ -74,7 +74,7 @@
           <blockquote>
             <blockquote>
               <p>
-               <a href="/center_update/{{ res['c_id'] }}"> <input type="submit" name="button" id="button" value="submit" /></a>
+               <input type="submit" name="button" id="button" value="submit" />
               </p>
             </blockquote>
           </blockquote>

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="get">
+<table  border="03">
+  <tr>
+    <td>#</td>
+    <td>Product Name</td>
+    <td>Quantity</td>
+     <td>User Name</td>
+    <td>Street</td>
+     <td>Locality</td>
+     <td>District</td>
+     <td>Ph No</td>
+     <td>Date</td>
+     <td>Time</td>
+     <td>notification</td>
+
+  </tr>
+   {% for i in res %}
+
+              <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>&nbsp;&nbsp;{{ i['product_id'] }}</td>
+                  <td>&nbsp;&nbsp;{{ i['quantity'] }}</td>
+                  <td>&nbsp;&nbsp;{{ i['user_id'] }}</td>
+                  <td>{{ i['street'] }}</td>
+                  <td>{{ i['locality'] }}</td>
+                  <td>&nbsp;&nbsp;{{ i['district'] }}</td>
+                  <td>&nbsp;&nbsp;{{ i['phone_no'] }}</td>
+                  <td>&nbsp;&nbsp;{{ i['date'] }}</td>
+                   <td>&nbsp;&nbsp;{{ i['curtime'] }}</td>
+
+              </tr>
+
+      {% endfor %}
+  
+</table>
+</form>
+</body>
+</html>

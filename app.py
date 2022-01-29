@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, session
 from DBConnection import Db
 import datetime
 
 app = Flask(__name__)
+app.secret_key = "abc"
 
 syspath=r"C:\Users\akhil\PycharmProject\flaskProject5\static\kisan\\"
 
@@ -19,8 +20,11 @@ def login():
         if res is not None:
             if res['user_type'] == 'admin':
                 return redirect('/home')
+
             elif res['user_type'] == 'center':
-                 return redirect('/center_home')
+                session["lid"] = res['login_id']
+                return redirect('/center_home')
+
             # elif res['user_type'] == 'user':
             #     return render_template('center/center_home.html')
 
@@ -41,21 +45,21 @@ def login():
 
 @app.route('/view_approved_center')
 def view_approved_center():
-    qry = "select *from center "
+    qry = "select *from center where status='pending'"
     obj = Db()
     res = obj.select(qry)
     return render_template("admin/Approve Center.html", res=res)
 
 @app.route('/approved_center_view')########################################
 def approved_center_view():
-    qry = "select *from center where status='pending'"
+    qry = "select *from center where status='approved'"
     obj = Db()
     res = obj.select(qry)
     return render_template("admin/Approved Center View.html",res=res)
 
-@app.route('/booking_master')
-def booking_master():
-    qry = "select * from booking_master,user where booking_master.user_id=user.user_id;"
+@app.route('/soil_report')
+def soil_report():
+    qry = "select * from soil_report,user where soil_report.user_id=user.user_id;"
     obj = Db()
     res = obj.select(qry)
     return render_template("admin/View Booking Master.html",res=res)
@@ -68,7 +72,7 @@ def booking_master_report(b_id):
         rprt.save(syspath+d+'.pdf')
         path='/static/kisan/'+d+'.pdf'
         db = Db()
-        db.update("update booking_master set report = '"+path+"' where master_id='" +str( b_id) + "' ")
+        db.update("update soil_report set report = '"+path+"' where soilreport_id='" +str( b_id) + "' ")
         return "OK"
 
     else:
@@ -115,10 +119,17 @@ def product():
 
 @app.route('/booking')
 def booking():
-    qry = " select * from booking,product,user where booking.product_id=product.product_id and booking.user_id=user.user_id;"
+    qry = " select * from booking_master,user where  booking_master.user_id=user.user_id and booking_master.status='booked'"
     obj = Db()
     res = obj.select(qry)
     return render_template("admin/View BOOKING.HTML",res=res)
+
+@app.route('/view_booked_products/<mid>')
+def view_booked_products(mid):
+    qry = " select  booking.*,product.*,booking.quantity*product.price as sum from booking,product where  booking.product_id=product.product_id and booking.master_id='"+mid+"'"
+    obj = Db()
+    res = obj.select(qry)
+    return render_template("admin/View booked products.HTML",res=res)
 
 @app.route('/payment')
 def payment():
@@ -179,13 +190,12 @@ def center_registration():
         return render_template('center/center_registraction.html')
 
 
-@app.route('/center_view/<c_id>')
-def center_view(c_id):
+@app.route('/center_view_profile')
+def center_view_profile():
     obj=Db()
-    qry="select * from center where c_id=c_id"
-
+    print(session["lid"])
+    qry="select * from center where c_id= '"+str(session["lid"])+"'"
     res = obj.selectOne(qry)
-
     return render_template('center/center profile view.html', res=res)
 
 
@@ -196,9 +206,16 @@ def center_home():
 
 
 
-@app.route('/notification')
+@app.route('/notification')#####################################################
 def notification():
-   return render_template('center/notification.html')
+    if request.method == "POST":
+        reply = request.form['textarea']
+        db = Db()
+        db.update(
+            "update complaint set reply = '" + reply + "', reply_date=curdate() where compaint_id = '" + c_id + "'")
+        return ''' <script> alert("Send Sucessfully");window.location = "/complaint"  </script>'''
+    else:
+        return render_template('center/notification.html')
 
 
 
@@ -211,6 +228,7 @@ def query():
 
 @app.route('/query_reply/<Q_id>',methods=['GET','POST'])
 def query_reply(Q_id):
+
     if request.method=="POST":
         reply=request.form['textarea']
         db = Db()
@@ -219,33 +237,58 @@ def query_reply(Q_id):
     else:
         return render_template("center/Query reply.html")
 
+@app.route('/view_center_bookings')
+def view_center_bookings():
+    qry = "select * from query,user where query.user_id=user.user_id;"
+    obj = Db()
+    res = obj.select(qry)
+    return render_template("center/Query view.html", res=res)
+
+
 #@app.route('/qu_reply/<Q_id>',methods=['GET','POST'])
 #def query_reply(Q_id):
     #return render_template("center/Query reply.html")
 
-@app.route('/center_update/<c_id>',methods=['GET','POST'])
-def center_update(c_id):
-    db = Db()
-    qry = "select * from center where c_id=c_id"
-    res=db.selectOne(qry)
-    if request.method=='POST':
-        name=request.form['abc']
-        street=request.form['str']
-        locality=request.form['local']
-        district=request.form['district']
-        phn=request.form['ph']
-        email=request.form['eml']
-        passw= request.form['pas']
-        db.update("update center set c_name = '"+name+"',street='"+street+"',locality='"+locality+"',district='"+district+"',phone_no='"+phn+"',email='"+email+"' where c_id ='"+c_id+"'")
-        db.update("update login set user_name = '" + name + "',password='"+passw+"' where login_id='"+c_id+"'")
-        return ''' <script> alert("Send Sucessfully");window.location = "/"  </script>'''
+# @app.route('/center_update/<c_id>',methods=['GET','POST'])
+# def center_update(c_id):
+#     db = Db()
+#     qry = "select * from center where c_id=c_id"
+#     res=db.selectOne(qry)
+#     if request.method=='POST':
+#         db=Db()
+#         name=request.form['abc']
+#         street=request.form['str']
+#         locality=request.form['local']
+#         district=request.form['district']
+# +       phn=request.form['ph']
+        # email=request.form['eml']
+        # passw= request.form['pas']
+        # db=Db()
+        # db.update("update center set c_name = '" + name + "',street = '"+street+"',locality = '"+locality+"', district = '"+district+"', phone_no='"+phn+"',email='"+email+"'  where c_id ='"+c_id+"'")
+        # db.update("update login set user_name='" + name + "',password='"+passw+"' where login_id='"+c_id+"'")
+        # return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+    # else:
+    #
+    #     return render_template('center/update_'
+    #                            center.html',res=res)
 
 
-    else:
-
-        return render_template('center/update_center.html',res=res)
-
-
+# @app.route('/view_booking_center'/<u_id>',methods=['GET','POST'])
+# def view_booking_center(u_id):
+#     db = Db()
+#     qry = "select * from booking,center,user where booking.street =center.street"
+#     res=db.select(qry)
+#     if request.method=='POST':
+#         db=Db()
+#         noet=request.form['textarea']
+#
+#         db.insert("insert into notification VALUE('','"+noet+"','" + u_id + "','"+curdate()+"','" + curtime()+ "')")
+#         return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+#
+#
+#     else:
+#
+#         return render_template('center/update_center.html',res=res)
 
 if __name__ == '__main__':
     app.run()
