@@ -15,18 +15,18 @@ def login():
 
         db = Db()
         res = db.selectOne("select * from login where user_name = '"+uname+"' and password = '"+password+"' ")
-
+        session["lid"] = res['login_id']
 
         if res is not None:
             if res['user_type'] == 'admin':
                 return redirect('/home')
 
             elif res['user_type'] == 'center':
-                session["lid"] = res['login_id']
+
                 return redirect('/center_home')
 
-            # elif res['user_type'] == 'user':
-            #     return render_template('center/center_home.html')
+            elif res['user_type'] == 'user':
+                 return render_template('user/user_home.html')
 
             else:
                 return "invalid user type"
@@ -239,10 +239,12 @@ def query_reply(Q_id):
 
 @app.route('/view_center_bookings')
 def view_center_bookings():
-    qry = "select * from query,user where query.user_id=user.user_id;"
+    qry = "select * from delvery,center where delvery.statuse='pending' AND center.locality=delvery.locality AND center.c_id='"+str(session["lid"])+"'"
     obj = Db()
+
     res = obj.select(qry)
-    return render_template("center/Query view.html", res=res)
+    print(res)
+    return render_template("center/view booking.html", res=res)
 
 
 #@app.route('/qu_reply/<Q_id>',methods=['GET','POST'])
@@ -289,6 +291,56 @@ def view_center_bookings():
 #     else:
 #
 #         return render_template('center/update_center.html',res=res)
+#############################################USER##################################
+@app.route('/user_view_profile')######
+def user_view_profile():
+    obj=Db()
+    print(session["lid"])
+    res = obj.selectOne("select * from user where user_id= '"+str(session["lid"])+"'")
+    print(res)
+    return render_template('user/user profile view.html', res=res)
+
+@app.route('/user_update/<c_id>',methods=['GET','POST'])
+def center_update(c_id):
+    db = Db()
+    qry = "select * from user where user_id='"+str(session["lid"])+"'"
+    res=db.selectOne(qry)
+    if request.method=='POST':
+       db=Db()
+       name=request.form['abc']
+       street=request.form['str']
+       locality=request.form['local']
+       district=request.form['district']
+       phn=request.form['ph']
+       # email=request.form['eml']
+       passw= request.form['pas']
+       db.update("update user set user_name = '" + name + "',street = '"+street+"',locality = '"+locality+"', district = '"+district+"', phone_number='"+phn+"'  where user_id ='"+str(session['lid'])+"'")
+       db.update("update login set user_name='" + name + "',password='"+passw+"' where login_id='"+str(session["lid"])+"'")
+       return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+    else:
+
+         return render_template('user/update user.html',res=res)
+
+
+# @app.route('/insert/<u_id>',methods=['GET','POST'])
+# def update_user(u_id):
+#      db = Db()
+#      qry = "select * from booking,center,user where booking.street =center.street"
+#      res=db.select(qry)
+#      if request.method=='POST':
+#          db=Db()
+#          noet=request.form['textarea']
+#
+#          db.insert("insert into notification VALUE('','"+noet+"','" + u_id + "',curdate(),datetime.now())")
+#          return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''#
+#      else:
+#
+#         return render_template('center/update_center.html',res=res)
+@app.route('/cart')
+def cart():
+    return render_template("user/cart view.html")
+
+
 
 if __name__ == '__main__':
     app.run()

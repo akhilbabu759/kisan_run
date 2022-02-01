@@ -7,12 +7,13 @@
 
 <body>
 
-   <form >
+   <form  >
     <table border="03">
+        <tr><img src=""> </tr>
       <tr><td>
-        <label ><b>Center Name</b></label>
+        <label ><b>user Name</b></label>
         </td>
-        <td>{{ res['c_name'] }} </td></tr>
+        <td>{{ res['user_name'] }} </td></tr>
       <tr><td>
         <label ><b>Street</b></label>
         </td>
@@ -32,24 +33,18 @@
       <tr><td>
         <label ><b>Phone No</b></label>
         </td>
-        <td>{{ res['phone_no'] }}
+        <td>{{ res['phone_number'] }}
 
         </td>
 
-        <tr><td>
-          <label ><b>Email</b></label>
-          </td>
-          <td>{{ res['email'] }}
 
-          </td>
-          </tr>
 
       <tr>
         <td colspan="2"><blockquote>
           <blockquote>
             <blockquote>
               <p>
-                <a href="/center_update/{{ res['c_id'] }}">change details</a>
+                <a href="/user_update/{{ res['user_id'] }}">change details</a>
               </p>
             </blockquote>
           </blockquote>
