@@ -341,6 +341,41 @@ def cart():
     return render_template("user/cart view.html")
 
 
+@app.route('/user_feedback',methods=['GET','POST'])
+def user_feedback():
+    if request.method == 'POST':
+        db=Db()
+        noet=request.form['textarea']
+        db.insert("insert into feedback VALUE('','" + noet +"', '"+str(session["lid"])+"',curdate(),curtime())")
+        return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+    else:
+        return render_template("user/feedback.html")
+
+
+@app.route('/soil_request',methods=['GET','POST'])
+def soil_request():
+    db=Db()
+    obj=db.selectOne("select * from user where user_id='"+str(session["lid"])+"'")
+    if request.method == 'POST':
+        db=Db()
+        name = request.form['abc']
+        street = request.form['def']
+        locality = request.form['jkl']
+        phn= request.form['mno']
+        amnt=400
+        pen="pending"
+        db.insert("insert into soil_report VALUE('', '"+str(session["lid"])+"','"+str(amnt)+"',curdate(),'"+pen+"')")
+        return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+    else:
+        return render_template("user/sent soil report.html",res=obj)
+
+@app.route('/view_booking')
+def view_booking():
+    db=Db()
+    obj=db.selectOne("select * from delvery where user_id='"+str(session["lid"])+"'")
+
+    return render_template("user/view booking.html", res=obj)
+
 
 if __name__ == '__main__':
     app.run()
