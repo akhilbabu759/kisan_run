@@ -122,11 +122,11 @@ CREATE TABLE `feedback` (
   `date` varchar(100) DEFAULT NULL,
   `time` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`feedback_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `feedback` */
 
-insert  into `feedback`(`feedback_id`,`feedback`,`user_id`,`date`,`time`) values (1,'blknjghlkm',11,'ahil',NULL),(2,'',NULL,NULL,NULL),(3,'Submit',1,'2022-02-02','12:13:26'),(4,'nzkslnglksn',1,'2022-02-02','12:16:10');
+insert  into `feedback`(`feedback_id`,`feedback`,`user_id`,`date`,`time`) values (1,'blknjghlkm',11,'ahil',NULL),(2,'',NULL,NULL,NULL),(3,'Submit',1,'2022-02-02','12:13:26'),(4,'nzkslnglksn',1,'2022-02-02','12:16:10'),(5,'dfh',1,'2022-02-04','10:55:22');
 
 /*Table structure for table `login` */
 
@@ -174,7 +174,7 @@ CREATE TABLE `payment` (
 
 /*Data for the table `payment` */
 
-insert  into `payment`(`payment_id`,`user_id`,`account_no`,`amount`,`date`) values (1,1,132423536,2000,'2022-01-06'),(2,2,124325676,2000,'2022-01-05'),(3,NULL,NULL,NULL,NULL);
+insert  into `payment`(`payment_id`,`user_id`,`account_no`,`amount`,`date`) values (1,1,132423536,500,'2022-01-06'),(2,2,124325676,2000,'2022-01-05'),(3,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `product` */
 
@@ -235,14 +235,14 @@ CREATE TABLE `soil_report` (
   `soilreport_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `report` varchar(100) DEFAULT NULL,
+  `date` varchar(100) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`soilreport_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `soil_report` */
 
-insert  into `soil_report`(`soilreport_id`,`user_id`,`amount`,`date`,`report`) values (1,2,400,'2000-12-06','/static/kisan/20220107102511.pdf'),(2,3,500,'2020-01-06','pending'),(3,1,400,'2022-02-02','pending');
+insert  into `soil_report`(`soilreport_id`,`user_id`,`amount`,`date`,`status`) values (6,1,400,'2022-02-04','pending'),(7,1,400,'2022-02-04','pending'),(8,1,400,'2022-02-04','pending'),(9,1,400,'2022-02-04','pending'),(10,1,400,'2022-02-04','pending'),(11,1,400,'2022-02-04','pending'),(12,1,400,'2022-02-04','pending'),(13,1,400,'2022-02-04','/static/kisan/20220204155234.pdf'),(14,1,400,'2022-02-04','booked');
 
 /*Table structure for table `user` */
 

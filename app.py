@@ -59,7 +59,7 @@ def approved_center_view():
 
 @app.route('/soil_report')
 def soil_report():
-    qry = "select * from soil_report,user where soil_report.user_id=user.user_id;"
+    qry = "select * from soil_report,user where soil_report.user_id=user.user_id and soil_report.status='booked'"
     obj = Db()
     res = obj.select(qry)
     return render_template("admin/View Booking Master.html",res=res)
@@ -72,7 +72,7 @@ def booking_master_report(b_id):
         rprt.save(syspath+d+'.pdf')
         path='/static/kisan/'+d+'.pdf'
         db = Db()
-        db.update("update soil_report set report = '"+path+"' where soilreport_id='" +str( b_id) + "' ")
+        db.update("update soil_report set status = '"+path+"' where soilreport_id='" +str( b_id) + "' ")
         return "OK"
 
     else:
@@ -349,6 +349,14 @@ def user_feedback():
         db.insert("insert into feedback VALUE('','" + noet +"', '"+str(session["lid"])+"',curdate(),curtime())")
         return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
     else:
+        return render_template("user/feedback.html")@app.route('/user_feedback',methods=['GET','POST'])
+def user_feedback():
+    if request.method == 'POST':
+        db=Db()
+        noet=request.form['textarea']
+        db.insert("insert into feedback VALUE('','" + noet +"', '"+str(session["lid"])+"',curdate(),curtime())")
+        return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+    else:
         return render_template("user/feedback.html")
 
 
@@ -362,10 +370,10 @@ def soil_request():
         street = request.form['def']
         locality = request.form['jkl']
         phn= request.form['mno']
-        amnt=400
-        pen="pending"
-        db.insert("insert into soil_report VALUE('', '"+str(session["lid"])+"','"+str(amnt)+"',curdate(),'"+pen+"')")
-        return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+        amnt=500
+        res = db.insert("insert into soil_report VALUE('', '"+str(session["lid"])+"','"+str(amnt)+"',curdate(),'pending')")
+        session['soil_id']=res
+        return ''' <script> alert("Send Sucessfully");window.location = "/soil_payment"  </script>'''
     else:
         return render_template("user/sent soil report.html",res=obj)
 
@@ -376,6 +384,67 @@ def view_booking():
 
     return render_template("user/view booking.html", res=obj)
 
+
+
+@app.route('/soil_payment',methods=['GET','POST'])
+def soil_payment():
+
+
+    if request.method == 'POST':
+        db = Db()
+        acc = request.form['abc']
+        # car = request.form['efg']
+        # mon = request.form['ijk']
+        # yr = request.form['lmn']
+        # cvv = request.form['hjk']
+        res=db.selectOne("select * from payment WHERE account_no='"+acc+"' and user_id='"+str(session["lid"])+"'")
+        amount1 = int(res['amount'])
+        if res is not None:
+            if amount1 >=500:
+                db.update("update soil_report set status='booked' where soilreport_id='" + str(session['soil_id']) + "' ")
+                db.update("update payment set amount='"+str(amount1-500)+"' where user_id='" + str(session["lid"]) + "' and account_no='"+acc+"' ")
+                return ''' <script> alert("Booked Successfully");window.location = "/soil_payment"  </script>'''
+            else:
+                return ''' <script> alert("insufficient Balance");window.location = "/soil_payment"  </script>'''
+
+
+        else:
+            return ''' <script> alert("Enter Correct Account Number");window.location = "/soil_payment"  </script>'''
+        # et = db.selectOne("select amount from payment WHERE user_id='" + str(session["lid"]) + "'")
+        # print(ed,et,acc)
+        # if ed==str(acc):
+        #     if et>=500:
+        #         db.update("update soil_report set status='booked' where user_id='" + str(session["lid"]) + "' ")
+        #         db.update("update payment set amount=amount-500 where user_id='" + str(session["lid"]) + "'")
+        #         return ''' <script> alert("Send Sucessfully");window.location = "/"  </script>'''
+        #     else:
+        #         return ''' <script> alert("insufficient Balance");window.location = "/soil_payment"  </script>'''
+        # else:
+        #     return ''' <script> alert("Enter Correct Account Number");window.location = "/soil_payment"  </script>'''
+
+
+    else:
+        return render_template("user/soil payment.html" )
+
+
+
+@app.route('/view_soil_booking')
+def view_soil_booking():
+        qry = "select * from soil_report where user_id='"+str(session["lid"])+"';"
+        obj = Db()
+        res = obj.select(qry)
+        return render_template("user/view soil report.html", res=res)
+
+
+@app.route('/user_complaint')
+def user_complaint():
+    if request.method == 'POST':
+        db=Db()
+        noet=request.form['textarea']
+        db.insert("insert into complaint VALUE('','" + noet +"', '"+str(session["lid"])+"',curdate(),curtime())")
+        return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+    else:
+        return render_template("user/feedback.html")
 
 if __name__ == '__main__':
     app.run()
