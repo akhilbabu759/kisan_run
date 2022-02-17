@@ -121,6 +121,12 @@ def assign_emp(b,c):
     return '''<script>alert('success');window.location="/soil_report"</script>'''
 
 
+    qry = "select * from soil_report,user where soil_report.user_id=user.user_id and soil_report.status='booked'"
+    obj = Db()
+    res = obj.select(qry)
+    return render_template("admin/View Booking Master.html",res=res)
+
+
 @app.route('/booking_master_report/<b_id>',methods=['GET','POST'])
 def booking_master_report(b_id):
     if request.method=="POST":
@@ -130,7 +136,12 @@ def booking_master_report(b_id):
         path='/static/kisan/'+d+'.pdf'
         db = Db()
         db.update("update soil_report set status = '"+path+"' where soilreport_id='" +str( b_id) + "' ")
+
         return '''<script>alert('report added');window.location="/home"</script>'''
+
+        return "OK"
+
+
     else:
         return render_template("admin/Booking Master Report.html")
 
@@ -586,6 +597,14 @@ def user_feedback():
         return ''' <script> alert("Send Sucessfully");window.location = "/user_feedback"  </script>'''
 
     else:
+        return render_template("user/feedback.html")@app.route('/user_feedback',methods=['GET','POST'])
+def user_feedback():
+    if request.method == 'POST':
+        db=Db()
+        noet=request.form['textarea']
+        db.insert("insert into feedback VALUE('','" + noet +"', '"+str(session["lid"])+"',curdate(),curtime())")
+        return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+    else:
         return render_template("user/feedback.html")
 
 
@@ -606,6 +625,13 @@ def soil_request():
     obj=db.selectOne("select * from user where user_id='"+str(session["lid"])+"'")
     if request.method == 'POST':
         db=Db()
+
+
+        name = request.form['abc']
+        street = request.form['def']
+        locality = request.form['jkl']
+        phn= request.form['mno']
+
         amnt=500
         res = db.insert("insert into soil_report VALUE('', '"+str(session["lid"])+"','"+str(amnt)+"',curdate(),'pending')")
         session['soil_id']=res
@@ -625,6 +651,7 @@ def view_booking():
 @app.route('/soil_payment',methods=['GET','POST'])
 def soil_payment():
 
+
     if request.method == 'POST':
         db = Db()
         acc = request.form['abc']
@@ -641,6 +668,7 @@ def soil_payment():
                 return ''' <script> alert("Booked Successfully");window.location = "/soil_payment"  </script>'''
             else:
                 return ''' <script> alert("insufficient Balance");window.location = "/soil_payment"  </script>'''
+
         else:
             return ''' <script> alert("Enter Correct Account Number");window.location = "/soil_payment"  </script>'''
         # et = db.selectOne("select amount from payment WHERE user_id='" + str(session["lid"]) + "'")

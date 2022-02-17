@@ -113,11 +113,19 @@ CREATE TABLE `feedback` (
   `date` varchar(100) DEFAULT NULL,
   `time` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`feedback_id`)
+<<<<<<< HEAD:sqll.sql
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `feedback` */
 
 insert  into `feedback`(`feedback_id`,`feedback`,`user_id`,`date`,`time`) values (1,'blknjghlkm',11,'ahil',NULL),(2,'',NULL,NULL,NULL),(3,'Submit',1,'2022-02-02','12:13:26'),(4,'nzkslnglksn',1,'2022-02-02','12:16:10'),(5,'dfh',1,'2022-02-04','10:55:22'),(6,'uhuohouvv',1,'2022-02-08','01:50:05'),(7,'ilkill',2,'2022-02-08','21:07:41');
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `feedback` */
+
+insert  into `feedback`(`feedback_id`,`feedback`,`user_id`,`date`,`time`) values (1,'blknjghlkm',11,'ahil',NULL),(2,'',NULL,NULL,NULL),(3,'Submit',1,'2022-02-02','12:13:26'),(4,'nzkslnglksn',1,'2022-02-02','12:16:10'),(5,'dfh',1,'2022-02-04','10:55:22');
+>>>>>>> 2de4bee381761d7741258714956ad38ec63bc040:sql.sql
 
 /*Table structure for table `login` */
 
@@ -166,7 +174,11 @@ CREATE TABLE `payment` (
 
 /*Data for the table `payment` */
 
+<<<<<<< HEAD:sqll.sql
 insert  into `payment`(`payment_id`,`user_id`,`account_no`,`amount`,`date`) values (1,1,132423536,2000,'2022-01-06'),(2,2,124325676,2000,'2022-01-05'),(3,22,456789,0,'2020-11-26');
+=======
+insert  into `payment`(`payment_id`,`user_id`,`account_no`,`amount`,`date`) values (1,1,132423536,500,'2022-01-06'),(2,2,124325676,2000,'2022-01-05'),(3,NULL,NULL,NULL,NULL);
+>>>>>>> 2de4bee381761d7741258714956ad38ec63bc040:sql.sql
 
 /*Table structure for table `product` */
 
@@ -249,11 +261,19 @@ CREATE TABLE `soil_report` (
   `date` varchar(100) DEFAULT NULL,
   `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`soilreport_id`)
+<<<<<<< HEAD:sqll.sql
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `soil_report` */
 
 insert  into `soil_report`(`soilreport_id`,`user_id`,`amount`,`date`,`status`) values (1,22,500,'2022-02-17','booked'),(2,22,500,'2022-02-17','booked'),(3,22,500,'2022-02-17','booked'),(4,22,500,'2022-02-17','booked'),(5,22,500,'2022-02-17','booked');
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `soil_report` */
+
+insert  into `soil_report`(`soilreport_id`,`user_id`,`amount`,`date`,`status`) values (6,1,400,'2022-02-04','pending'),(7,1,400,'2022-02-04','pending'),(8,1,400,'2022-02-04','pending'),(9,1,400,'2022-02-04','pending'),(10,1,400,'2022-02-04','pending'),(11,1,400,'2022-02-04','pending'),(12,1,400,'2022-02-04','pending'),(13,1,400,'2022-02-04','/static/kisan/20220204155234.pdf'),(14,1,400,'2022-02-04','booked');
+>>>>>>> 2de4bee381761d7741258714956ad38ec63bc040:sql.sql
 
 /*Table structure for table `user` */
 

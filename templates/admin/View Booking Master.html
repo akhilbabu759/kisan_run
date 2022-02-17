@@ -26,9 +26,15 @@
      <td>&nbsp;&nbsp;{{ i['amount'] }}</td>
     <td>&nbsp;&nbsp;{{ i['date'] }}</td>
      <td>
+
         <a href="/allocate_soil_emp/{{ i['soilreport_id'] }}"> Alocate Employee</a><br>
         <a href="/booking_master_report/{{ i['soilreport_id'] }}"> Upload Report</a><br>
         <a href=""> View Payment</a>
+
+         {% if i['status']=='booked' %}<a href="/booking_master_report/{{ i['soilreport_id'] }}">REPORT</a>
+     {% else %}<a href="{{ i['status'] }}">view report </a>
+         {% endif %}
+
      </td>
     
   </tr>
