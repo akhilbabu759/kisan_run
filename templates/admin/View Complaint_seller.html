@@ -10,7 +10,7 @@
   <tr>
     <td>@#</td>
     <td>Date</td>
-    <td><p>User Name</p></td>
+    <td><p>Seller Name</p></td>
     <td>Complaint</td>
 {#    <td>status&nbsp;</td>#}
       <td>reply</td>
@@ -19,12 +19,12 @@
     <tr>
       <td>{{ loop.index }}</td>
       <td>&nbsp;&nbsp;{{ i['complaint_date'] }}</td>
-      <td>&nbsp;&nbsp;{{ i['user_name'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['name'] }}</td>
       <td>&nbsp;&nbsp;{{ i['complaint'] }}</td>
 {#      <td>&nbsp;&nbsp;{{ i['status'] }}</td>#}
 
      <td>
-         {% if i['reply']=='pending' %}<a href="/complaint_replay/{{ i['compaint_id'] }}">REPLY</a>
+         {% if i['reply']=='pending' %}<a href="/seller_complaint_replay/{{ i['compaint_id'] }}">REPLY</a>
     {% else %}{{ i['reply'] }}
              <td>
     {{ i['reply_date']}}
