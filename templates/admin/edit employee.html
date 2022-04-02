@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+ <form action="" method="post" >
+
+
+          <table>
+              <tr><td>
+                <label ><b>Employee Name</b></label>
+              </td>
+              <td> <input type="text" name="abc" value="{{ res['name'] }}">
+              </td></tr>
+              <tr><td>
+                <label ><b>Street</b></label>
+              </td>
+              <td> <input type="text" name="str" value="{{ res['street'] }}">
+              </td></tr>
+              <tr><td>
+                <label ><b>Locality</b></label>
+              </td>
+              <td> <input type="text" name="local" value="{{ res['locality'] }}">
+              </td></tr>
+              <tr><td>
+                <label ><b>District</b></label>
+              </td>
+              <td>
+            <select name="district" >
+              <option value="Kasargod" {% if res['district']=='Kasargod' %}selected{% endif %} >Kasargod</option>
+              <option value="Kannur" {% if res['district']=='Kannur' %}selected{% endif %}>Kannur</option>
+              <option value="Kozhikode" {% if res['district']=='Kozhikode' %}selected{% endif %}>Kozhikode</option>
+              <option value="Malappuram" {% if res['district']=='Malappuram' %}selected{% endif %}>Malappuram</option>
+              <option value="Wayanad" {% if res['district']=='Wayanad' %}selected{% endif %}>Wayanadu</option>
+              <option value="Thrissur" {% if res['district']=='Thrissur' %}selected{% endif %}>Trissure</option>
+              <option value="Alappuzha" {% if res['district']=='Alappuzha' %}selected{% endif %}>Alappuzha</option>
+              <option value="Palakkad" {% if res['district']=='Palakkad' %}selected{% endif %}>Palakkadu</option>
+              <option value="Pathanamthitta" {% if res['district']=='Pathanamthitta' %}selected{% endif %}>Pathanamathitta</option>
+              <option value="Kottayam" {% if res['district']=='Kottayam' %}selected{% endif %}>Kottayam</option>
+              <option value="Kollam" {% if res['district']=='Kollam' %}selected{% endif %}>Kollam</option>
+              <option value="Idukki" {% if res['district']=='Idukki' %}selected{% endif %}>Idukki</option>
+              <option value="Eranakulam" {% if res['district']=='Eranakulam' %}selected{% endif %}>Eranakulam</option>
+              <option value="Thiruvanathapuram" {% if res['district']=='Thiruvanathapuram' %}selected{% endif %}>Thiruvananthapuram</option>
+            </select>
+              </td></tr>
+              <tr><td>
+                <label ><b>Phone No</b></label>
+              </td>
+            <td>
+                <input type="text" name="ph" value="{{ res['phone_no'] }}" >
+            </td>
+
+              <tr><td>
+                <label ><b>Email</b></label>
+              </td>
+            <td>
+                <input type="text" name="eml" value="{{ res['email'] }}" >
+            </td>
+            </tr>
+
+             <tr>
+                <td colspan="2"><blockquote>
+          <blockquote>
+            <blockquote>
+              <p>
+               <input type="submit" name="button" id="button" value="submit" />
+              </p>
+            </blockquote>
+          </blockquote>
+        </blockquote></td>
+        </tr>
+        </table>
+
+
+      </form>
+</body>
+</html>

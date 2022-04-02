@@ -3,7 +3,7 @@ import mysql.connector
 
 class Db:
     def __init__(self):
-        self.cnx = mysql.connector.connect(host="localhost",user="root",password="",database="kisan")
+        self.cnx = mysql.connector.connect(host="localhost",user="root",password="",database="kisan_project")
         self.cur = self.cnx.cursor(dictionary=True)
 
 

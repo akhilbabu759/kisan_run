@@ -16,8 +16,8 @@
      <td>Details</td>
     <td>Stock</td>
      <td>Price</td>
-     <td>User Id</td>
-      <td>Status</td>
+     <td>User Name</td>
+{#      <td>Status</td>#}
     
   </tr>
         {% for i in res %}
@@ -27,8 +27,8 @@
     <td>&nbsp;&nbsp;{{ i['details'] }}</td>
      <td>&nbsp;&nbsp;{{ i['stock'] }}</td>
     <td>&nbsp;&nbsp;{{ i['price'] }}</td>
-     <td>&nbsp;&nbsp;{{ i['user_id'] }}</td>
-     <td>&nbsp;&nbsp;{{ i['status'] }}</td>
+     <td>&nbsp;&nbsp;{{ i['user_name'] }}</td>
+{#     <td>&nbsp;&nbsp;{{ i['status'] }}</td>#}
 
   </tr>
     {% endfor %}

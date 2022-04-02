@@ -25,14 +25,10 @@
     <td>&nbsp;&nbsp;{{ i['user_name'] }}</td>
      <td>&nbsp;&nbsp;{{ i['amount'] }}</td>
     <td>&nbsp;&nbsp;{{ i['date'] }}</td>
-{#     <td>&nbsp;&nbsp;{{ i['status'] }}</td>#}
-
-
-
      <td>
-         {% if i['report']=='pending' %}<a href="/booking_master_report/{{ i['soilreport_id'] }}">REPORT</a>
-     {% else %}<a href="{{ i['report'] }}">view report </a>
-         {% endif %}
+        <a href="/allocate_soil_emp/{{ i['soilreport_id'] }}"> Alocate Employee</a><br>
+        <a href="/booking_master_report/{{ i['soilreport_id'] }}"> Upload Report</a><br>
+        <a href=""> View Payment</a>
      </td>
     
   </tr>
