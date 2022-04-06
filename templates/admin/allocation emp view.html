@@ -1,3 +1,7 @@
+{% extends "admin/index.html"%}
+{% block body %}
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -7,7 +11,7 @@
 
 <body>
 <form id="form1" name="form1" method="post" action="">
-  <table  border="03">
+  <table  border="1" class="table table-hover">
 {#  <tr><input type="text" name="textfield" value="{{ data }}" /></tr>#}
     <tr>
       <td>#</td>
@@ -33,3 +37,5 @@
 </form>
 </body>
 </html>
+
+{% endblock %}
