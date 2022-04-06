@@ -39,7 +39,11 @@ def login():
 
 @app.route('/home')
 def home():
+<<<<<<< HEAD
     return render_template("admin/index.html")
+=======
+    return render_template("admin/admin home.html")
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
 
 @app.route('/add_employee',methods=['get','post'])
 def add_employee():
@@ -120,6 +124,15 @@ def assign_emp(b,c):
     db.insert("insert into allocate values('','"+str(c)+"','"+b+"','soil')")
     return '''<script>alert('success');window.location="/soil_report"</script>'''
 
+<<<<<<< HEAD
+=======
+
+    qry = "select * from soil_report,user where soil_report.user_id=user.user_id and soil_report.status='booked'"
+    obj = Db()
+    res = obj.select(qry)
+    return render_template("admin/View Booking Master.html",res=res)
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
+
 
 @app.route('/booking_master_report/<b_id>',methods=['GET','POST'])
 def booking_master_report(b_id):
@@ -130,7 +143,16 @@ def booking_master_report(b_id):
         path='/static/kisan/'+d+'.pdf'
         db = Db()
         db.update("update soil_report set status = '"+path+"' where soilreport_id='" +str( b_id) + "' ")
+<<<<<<< HEAD
         return '''<script>alert('report added');window.location="/home"</script>'''
+=======
+
+        return '''<script>alert('report added');window.location="/home"</script>'''
+
+        return "OK"
+
+
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
     else:
         return render_template("admin/Booking Master Report.html")
 
@@ -142,12 +164,21 @@ def complaint():
     res = obj.select(qry)
     return render_template("admin/View Complaint.html",res=res)
 
-@app.route('/complaint_replay/<c_id>',methods=['GET','POST'])
-def complaint_replay(c_id):
+@app.route('/seller_complaint_admin')
+def seller_complaint_admin():
+    qry = "select * from complaint,seller where complaint.user_id=seller.seller_id "
+    obj = Db()
+    res = obj.select(qry)
+    return render_template("admin/View Complaint_seller.html",res=res)
+
+
+@app.route('/seller_complaint_replay/<c_id>',methods=['GET','POST'])
+def seller_complaint_replay(c_id):
     if request.method=="POST":
         reply=request.form['textarea']
         db = Db()
         db.update("update complaint set reply = '"+reply+"', reply_date=curdate() where compaint_id = '"+c_id+"'")
+<<<<<<< HEAD
         return ''' <script> alert("Send Sucessfully");window.location = "/complaint_admin"  </script>'''
     else:
         return render_template("admin/Complaint Replay.html")
@@ -166,6 +197,8 @@ def seller_complaint_replay(c_id):
         reply=request.form['textarea']
         db = Db()
         db.update("update complaint set reply = '"+reply+"', reply_date=curdate() where compaint_id = '"+c_id+"'")
+=======
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
         return ''' <script> alert("Send Sucessfully");window.location = "/seller_complaint_admin"  </script>'''
     else:
         return render_template("admin/Complaint Replay.html")
@@ -242,20 +275,32 @@ def notification():
 @app.route('/view_seller_request')
 def view_seller_request():
     db=Db()
+<<<<<<< HEAD
     prd=db.select("select * from seller,product where seller.seller_id=product.seller_id and status='pending'")
+=======
+    prd=db.select("select * from seller,product_request where seller.seller_id=product_request.seller_id and status='pending'")
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
     return render_template("admin/view_seller_request.html",res=prd)
 
 
 @app.route('/accept_seller/<s_id>')
 def accept_seller(s_id):
     db=Db()
+<<<<<<< HEAD
     db.update("update product set status='accepted' where Product_id='"+s_id+"'")
+=======
+    db.update("update product_request set status='accepted' where request_id='"+s_id+"'")
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
     return ''' <script> alert("Accepted");window.location = "/view_seller_request"  </script>'''
 
 @app.route('/reject_seller/<s_id>')
 def reject_seller(s_id):
     db=Db()
+<<<<<<< HEAD
     db.delete("delete from product where Product_id='"+s_id+"'")
+=======
+    db.delete("delete from product_request where request_id='"+s_id+"'")
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
     return ''' <script> alert("Deleted");window.location = "/view_seller_request"  </script>'''
 
 
@@ -263,7 +308,11 @@ def reject_seller(s_id):
 @app.route('/view_accepted_seller')
 def view_accepted_seller():
     db=Db()
+<<<<<<< HEAD
     res=db.select("select * from seller,product where seller.seller_id=product.seller_id and status='accepted'")
+=======
+    res=db.select("select * from seller,product_request where seller.seller_id=product_request.seller_id and status='accepted'")
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
     return render_template("admin/view_accepted_seller.html",res=res)
 
 
@@ -272,7 +321,11 @@ def view_accepted_seller():
 def allocate_emp_seller(b):
     print(b)
     db=Db()
+<<<<<<< HEAD
     res = db.select("select * from product,allocate where product.Product_id=allocate.request_id and type='collect'")
+=======
+    res = db.select("select * from product_request,allocate where product_request.request_id=allocate.request_id and type='collect'")
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
     print(res)
     if len(res) >0:
         return '''<script>alert('Already Assigned');window.location="/view_accepted_seller"</script>'''
@@ -287,7 +340,11 @@ def assign_emp_seller(b, c):
     # print(r_id)
 
     db = Db()
+<<<<<<< HEAD
     db.insert("insert into allocate values('','" + str(c) + "','" + b + "','product','free',curdate())")
+=======
+    db.insert("insert into allocate values('','" + str(c) + "','" + b + "','collect')")
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
     return '''<script>alert('success');window.location="/view_accepted_seller"</script>'''
 
 
@@ -318,6 +375,28 @@ def seller_view_profile():
     qry="select * from seller where seller_id= '"+str(session["lid"])+"'"
     res = obj.selectOne(qry)
     return render_template('seller/seller profile view.html', res=res)
+<<<<<<< HEAD
+
+
+@app.route('/edit_seller',methods=['GET','POST'])
+def edit_seller():
+    if request.method=="POST":
+        db = Db()
+        name = request.form['abc']
+        street = request.form['str']
+        locality = request.form['local']
+        district = request.form['district']
+        phn = request.form['ph']
+        email=request.form['eml']
+        db.update("update seller set name = '" + name + "',street = '" + street + "',locality = '" + locality + "', district = '" + district + "', phoneno='" + phn + "',email='"+email+"'  where seller_id ='"+str(session["lid"])+"'")
+        db.update("update login set user_name='" + name + "'  where login_id ='"+str(session["lid"])+"'")
+        return ''' <script> alert("Update Sucessfully");window.location = "/seller_view_profile"  </script>'''
+    else:
+        db=Db()
+        emp=db.selectOne("select * from seller where seller_id='"+str(session["lid"])+"'")
+        return render_template('seller/update seller.html', res=emp)
+=======
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
 
 
 @app.route('/edit_seller',methods=['GET','POST'])
@@ -338,13 +417,22 @@ def edit_seller():
         emp=db.selectOne("select * from seller where seller_id='"+str(session["lid"])+"'")
         return render_template('seller/update seller.html', res=emp)
 
+<<<<<<< HEAD
+@app.route('/seller_home')
+def center_home():
+    return render_template("seller/seller home.html")
+=======
 
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
 
 @app.route('/seller_home')
 def center_home():
     return render_template("seller/seller home.html")
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
 #
 @app.route('/seller_complaint',methods=['GET','POST'])
 def seller_complaint():
@@ -519,7 +607,11 @@ def add_user():
         name=request.form['textfield2']
         photo=request.files['fileField']
         date=datetime.datetime.now().strftime("%y%m%d-%H%M%S")
+<<<<<<< HEAD
         photo.save=(r"C:\Users\akhil\Downloads\flaskProject5\static\images\\"+date+'.jpg')
+=======
+        photo.save=(r"C:\flaskProject5\static\images/"+date+'.jpg')
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
         path=("static/images/"+date+'.jpg')
         gender=request.form['radio']
         street=request.form['textfield3']
@@ -595,6 +687,17 @@ def user_feedback():
         db.insert("insert into feedback VALUE('','" + noet +"', '"+str(session["lid"])+"',curdate(),curtime())")
         return ''' <script> alert("Send Sucessfully");window.location = "/user_feedback"  </script>'''
 
+<<<<<<< HEAD
+=======
+    else:
+        return render_template("user/feedback.html")@app.route('/user_feedback',methods=['GET','POST'])
+def user_feedback():
+    if request.method == 'POST':
+        db=Db()
+        noet=request.form['textarea']
+        db.insert("insert into feedback VALUE('','" + noet +"', '"+str(session["lid"])+"',curdate(),curtime())")
+        return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
     else:
         return render_template("user/feedback.html")
 
@@ -616,6 +719,16 @@ def soil_request():
     obj=db.selectOne("select * from user where user_id='"+str(session["lid"])+"'")
     if request.method == 'POST':
         db=Db()
+<<<<<<< HEAD
+=======
+
+
+        name = request.form['abc']
+        street = request.form['def']
+        locality = request.form['jkl']
+        phn= request.form['mno']
+
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
         amnt=500
         res = db.insert("insert into soil_report VALUE('', '"+str(session["lid"])+"','"+str(amnt)+"',curdate(),'pending')")
         session['soil_id']=res
@@ -635,6 +748,10 @@ def view_booking():
 @app.route('/soil_payment',methods=['GET','POST'])
 def soil_payment():
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
     if request.method == 'POST':
         db = Db()
         acc = request.form['abc']
@@ -651,6 +768,10 @@ def soil_payment():
                 return ''' <script> alert("Booked Successfully");window.location = "/soil_payment"  </script>'''
             else:
                 return ''' <script> alert("insufficient Balance");window.location = "/soil_payment"  </script>'''
+<<<<<<< HEAD
+=======
+
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
         else:
             return ''' <script> alert("Enter Correct Account Number");window.location = "/soil_payment"  </script>'''
         # et = db.selectOne("select amount from payment WHERE user_id='" + str(session["lid"]) + "'")
@@ -679,11 +800,16 @@ def view_soil_booking():
         return render_template("user/view soil report.html", res=res)
 
 
+<<<<<<< HEAD
 @app.route('/user_complaint',methods=['GET','POST'])
+=======
+@app.route('/user_complaint')
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
 def user_complaint():
     if request.method == 'POST':
         db=Db()
         noet=request.form['textarea']
+<<<<<<< HEAD
         db.insert("insert into complaint VALUE('','" + noet +"',curdate(), '"+str(session["lid"])+"','pending','pending','user')")
         return ''' <script> alert("Send Sucessfully");window.location = "/user_home/<c_id>"  </script>'''
     else:
@@ -692,5 +818,12 @@ def user_complaint():
 
 # @app.route('/user_complaint')
 
+=======
+        db.insert("insert into complaint VALUE('','" + noet +"', '"+str(session["lid"])+"',curdate(),curtime())")
+        return ''' <script> alert("Send Sucessfully");window.location = "/center_view/<c_id>"  </script>'''
+    else:
+        return render_template("user/feedback.html")
+
+>>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5
 if __name__ == '__main__':
     app.run()
