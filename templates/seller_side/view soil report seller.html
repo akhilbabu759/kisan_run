@@ -1,0 +1,38 @@
+<html>
+    <body>
+        <form>
+            <table border=2>
+                <tr>
+                    <td>#</td>
+                    <td>request</td>
+                    <td>report</td>
+                    
+                </tr>
+                {% for i in res %}
+
+
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        {{ i['soilreport_id' ]}}
+
+                    </td>
+                    {% if i['status']=='pending' %}
+                        <td>
+                            pending
+                        </td>
+                    {% elif i['status']=='booked'  %}
+                        <td>
+                            booked
+                        </td>
+                    {% else %}
+                        <td>
+                            <a href="{{ i['status'] }}">view</a>
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="get">
+<table  border="03">
+
+  <tr>
+    <td>#</td>
+
+    <td>Product Name</td>
+     <td>Details</td>
+    <td>Quantity</td>
+     <td>Price</td>
+     <td> &nbsp;Admin Price</td>
+{#      <td>Status</td>#}
+    
+  </tr>
+        {% for i in res %}
+  <tr>
+    <td>&nbsp;{{ loop.index }}</td>
+    <td>&nbsp;{{ i['Product_name'] }}</td>
+    <td>&nbsp;&nbsp;{{ i['details'] }}</td>
+     <td>&nbsp;&nbsp;{{ i['Quantity'] }}</td>
+    <td>1 kg:{{ i['seller_price'] }}</td>
+       {% if  i['status']=='pending' %}
+           <td><a href="/accept_product/{{ i['Product_id'] }}">Accept</a><br>
+           <a href=/delete_product/{{ i['Product_id'] }}"">Reject</a> </td>
+           {% elif i['admin_price']==0 and  i['status']=='accepted' %}
+           <td>&nbsp;&nbsp;<a href="/add_admin_price/{{ i['Product_id'] }}">Add Price</a> </td>
+     {% elif i['admin_price']!=0 %}
+      <td>&nbsp;Price:{{ i['admin_price'] }}</td>
+      <td><a href="/update_admin_price/{{ i['Product_id'] }}">Update</a></td>
+           {% else %}
+           <td><h3>pending</h3></td>
+      {% endif %}
+{#     <td>&nbsp;&nbsp;{{ i['status'] }}</td>#}
+
+  </tr>
+    {% endfor %}
+  
+</table>
+</form>
+</body>
+</html>

@@ -1,6 +1,3 @@
-{% extends "admin/index.html"%}
-{% block body %}
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -9,19 +6,18 @@
 </head>
 
 <body>
-<form action="" method="POST" enctype="multipart/form-data">
+<form action="" method="post">
 <table width="500" border="03">
   <tr>
-    <td>Report</td>
-    <td><input type="file" name="fileField" id="fileField" /></td>
+    <td>Feedback</td>
+    <td><textarea name="textarea" id="textarea" cols="45" rows="5"></textarea></td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
-    <td><input type="submit" class="btn btn-outline-primary" name="button" id="button" value="Submit" /></td>
+
+    <td><input type="submit" name="button" id="button" value="Submit" /></td>
   </tr>
   </table>
 </form>
+
 </body>
 </html>
-
-{% endblock %}

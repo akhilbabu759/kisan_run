@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="get"><table  border="03">
+  <tr>
+    <td>#</td>
+
+
+    <td>Product Name</td>
+    <td>Quantity</td>
+    <td>Details</td>
+    <td>Price</td>
+  </tr>
+   {% for i in data %}
+    <tr>
+      <td>{{ loop.index }}</td>
+
+      <td>&nbsp;&nbsp;{{ i['Product_name'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['Quantity'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['details'] }}</td>
+      <td>&nbsp;&nbsp;1 kg :{{ i['seller_price'] }}</td>
+    <td><a href="/update_product/{{ i['Product_id'] }}">Update</a> <br>
+    <a href="/delete_product_seller/{{ i['Product_id'] }}">Delete</a> </td>
+
+    </tr>
+      {% endfor %}
+</table>
+
+</form>
+</body>
+</html>

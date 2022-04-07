@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="post"><table  border="03">
+<tr><select name="select"><option value="1">January</option>
+            <option  value="2">February</option >
+            <option  value="3">March</option >
+            <option  value="4">April</option >
+            <option  value="5">May</option >
+            <option  value="6">June</option >
+            <option  value="7">July</option >
+            <option  value="8">August</option >
+            <option  value="9">September</option >
+            <option  value="10">October</option >
+            <option  value="11">November</option >
+            <option  value="12">December</option >
+</select></tr>
+    <tr><input type="submit" name="button" value="Search" ></tr>
+</table></form>
+<form><table border="1">
+  <tr>
+    <td>#</td>
+    <td>Product Name</td>
+    <td><p>Price</p></td>
+
+
+  </tr>
+{% for i in data %}
+    <tr>
+      <td>{{ loop.index }}</td>
+      <td>&nbsp;&nbsp;{{ i['Product_name'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['seller_price'] }}</td>
+
+
+  </tr>
+{% endfor %}<br><br>
+ {% for i in a %}<tr>Total Price<input type="text" name="" value="{{ i['total'] }}" readonly></tr>{% endfor %}<br><br>
+</table>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="get"><table  border="03">
+  <tr>
+    <td>#</td>
+
+    <td><p>Type</p></td>
+    <td>employee name</td>
+  </tr>
+   {% for i in data %}
+    <tr>
+      <td>{{ loop.index }}</td>
+
+      <td>{{ i['type'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['name'] }}</td>
+    <td><a href="/update_status/{{ i['id'] }}">Update status</a> </td>
+
+    </tr>
+      {% endfor %}
+</table>
+
+</form>
+</body>
+</html>

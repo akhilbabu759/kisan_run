@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form id="form1" name="form1" method="post" action="">
+  <table  border="03">
+    <tr>
+      <td>#</td>
+      <td>USER NAME</td>
+       <td>Gender</td>
+      <td>Street</td>
+      <td>Locality</td>
+      <td>District</td>
+      <td>Ph No</td>
+    </tr>
+      {% for i in res %}
+    <tr>
+      <td>&nbsp;{{ loop.index }}</td>
+      <td>&nbsp;{{ i['user_name'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['gender'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['street'] }}</td>
+      <td>&nbsp;{{ i['locality'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['district'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['phone_number'] }}</td>
+    </tr>
+      {% endfor %}
+  </table>
+</form>
+</body>
+</html>

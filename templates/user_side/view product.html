@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="get">
+<table  border="03">
+  <tr>
+    <td>#</td>
+   
+    <td>Product Name</td>
+     <td>Details</td>
+    <td>Stock</td>
+     <td>Price</td>
+     
+
+      <td></td>
+    
+  </tr>
+    {% for i in data %}
+  <tr>
+    <td>{{ loop.index }}</td>
+    <td>{{ i['Product_name'] }}</td>
+    <td>{{ i['details'] }}</td>
+     <td>{{ i['Quantity'] }}</td>
+    <td>{{ i['admin_price'] }}</td>
+
+     <td><a href="/add_to_cart/{{ i['Product_id'] }}">add to cart</a></td>
+     
+    
+  </tr>
+    {% endfor %}
+  
+</table>
+</form>
+</body>
+</html>

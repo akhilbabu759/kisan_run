@@ -1,8 +1,3 @@
-
-{% extends "admin/index.html"%}
-{% block body %}
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,7 +13,7 @@
       <td>Seller Name</td>
       <td>Product Name</td>
       <td>Details</td>
-      <td>Stock</td>
+
       <td>Price</td>
       <td>&nbsp;</td>
     </tr>
@@ -27,15 +22,11 @@
       <td>&nbsp;{{ loop.index }}</td>
       <td>&nbsp;{{ i['name'] }}</td>
 
-      <td>&nbsp;&nbsp;{{ i['product_name'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['Product_name'] }}</td>
       <td>&nbsp;{{ i['details'] }}</td>
-      <td>&nbsp;&nbsp;{{ i['stock'] }}</td>
-      <td>&nbsp;&nbsp;{{ i['price'] }}</td>
 
-{#      <td><p><a href="/allocate_emp_seller/{{ i['Product_id'] }}">Allocate Employee</a></p>#}
-
+      <td>&nbsp;&nbsp;{{ i['seller_price'] }}</td>
       <td><p><a href="/allocate_emp_seller/{{ i['request_id'] }}">Allocate Employee</a></p>
-
       <p><a href="#">Send Payment</a></p></td>
     </tr>
       {% endfor %}
@@ -43,8 +34,3 @@
 </form>
 </body>
 </html>
-
-
-{% endblock %}
-=======
->>>>>>> c2fd2cff8221e58f03ef0535f38cd70eff5ab9c5

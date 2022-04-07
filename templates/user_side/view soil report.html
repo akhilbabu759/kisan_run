@@ -1,0 +1,38 @@
+<html>
+    <body>
+        <form>
+            <table border=2>
+                <tr>
+                    <td>#</td>
+                    <td>request</td>
+                    <td>report</td>
+                    
+                </tr>
+                {% for i in res %}
+
+
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>
+                        {{ i['soilreport_id' ]}}
+
+                    </td>
+                    {% if i['status']=='pending' %}
+                        <td>
+                           <a href="/soil_payment">complete payment Process</a>
+                        </td>
+                    {% elif i['status']=='booked'  %}
+                        <td>
+                            <a href="/cancel_booking_user/{{ i.soilreport_id }}">Cancel Booking</a>
+                        </td>
+                    {% else %}
+                        <td>
+                            <a href="{{ i['status'] }}">view</a>
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </body>
+</html>

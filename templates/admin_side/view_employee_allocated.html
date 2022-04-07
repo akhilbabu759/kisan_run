@@ -1,8 +1,3 @@
-
-{% extends "admin/index.html"%}
-{% block body %}
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -13,23 +8,29 @@
 <body>
 <form id="form1" name="form1" method="post" action="">
   <table  border="03">
-{#  <tr><input type="text" name="textfield" value="{{ data }}" /></tr>#}
     <tr>
       <td>#</td>
       <td>Name</td>
+      <td>Street</td>
+      <td>Locality</td>
+      <td>District</td>
       <td>Ph No</td>
       <td>Email</td>
-      <td>&nbsp;</td>
+{#      <td>&nbsp;</td>#}
     </tr>
-      {% for i in qry %}
+      {% for i in data %}
 
               <tr>
                   <td>{{ loop.index }}</td>
                   <td>&nbsp;&nbsp;{{ i['name'] }}</td>
+                  <td>&nbsp;&nbsp;{{ i['street'] }}</td>
+                  <td>&nbsp;&nbsp;{{ i['locality'] }}</td>
+                  <td>&nbsp;&nbsp;{{ i['district'] }}</td>
                   <td>&nbsp;&nbsp;{{ i['phone_no'] }}</td>
                   <td>&nbsp;&nbsp;{{ i['email'] }}</td>
-                  <td><a href="/assign_emp_seller/{{ i['employee_id'] }}/{{ data }}">assign</a><br>
-
+{#                  {% if i['status']=='pending' %}#}
+{#              <td><a href="/send_payment_emp/{{ i['employee_id'] }}/{{ i['request_id'] }}">Update Payment</a> </td>#}
+{#              {% endif %}#}
 
               </tr>
 
@@ -38,5 +39,3 @@
 </form>
 </body>
 </html>
-
-{% endblock %}

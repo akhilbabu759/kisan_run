@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="post">
+<table  border="03">
+  <tr>
+    <td>#</td>
+{#    <td>Master Id</td>#}
+{#    <td>User name</td>#}
+     <td>Amount</td>
+    <td>Date</td>
+{#     <td>Status</td>#}
+     <td>&nbsp;</td>
+    
+  </tr>
+  {% for i in res %}
+  <tr>
+    <td>&nbsp;{{ loop.index }}</td>
+{#    <td>&nbsp;{{ i['master_id'] }}</td>#}
+{#    <td>&nbsp;&nbsp;{{ i['user_name'] }}</td>#}
+     <td>&nbsp;&nbsp;{{ i['amount'] }}</td>
+    <td>&nbsp;&nbsp;{{ i['date'] }}</td>
+     <td>
+         {% if  i['status']=='pending'  %}
+        <a href="/seller_soil_payment">complete payment Process</a>
+         {% elif  i['status']=='booked'  %}
+         <h3>Booked</h3><br>
+             <a href="/cancel_booking/{{ i.soilreport_id }}">Cancel Booking</a>
+         {% else %}
+        <a href="{{ i['status'] }}"> View Report</a><br>
+
+         {% endif %}
+     </td>
+    
+  </tr>
+    {% endfor %}
+  
+</table>
+</form>
+</body>
+</html>
