@@ -9,9 +9,9 @@
 <form action="" method="get"><table  border="03">
   <tr>
     <td>#</td>
-
     <td><p>Type</p></td>
     <td>employee name</td>
+    <td>date</td>
   </tr>
    {% for i in data %}
     <tr>
@@ -19,6 +19,7 @@
 
       <td>{{ i['type'] }}</td>
       <td>&nbsp;&nbsp;{{ i['name'] }}</td>
+      <td>{{ i['date'] }}</td>
     <td><a href="/update_status/{{ i['id'] }}">Update status</a> </td>
 
     </tr>

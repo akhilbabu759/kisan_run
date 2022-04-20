@@ -104,22 +104,23 @@ def delete_employee(e_id):
 
 @app.route('/view_soil_request',methods=['get','post'])
 def view_soil_request():
+    db = Db()
     if request.method=="POST":
-        db=Db()
+
         mtype=request.form['mtype']
         if mtype=="seller":
             obj = Db()
             qry = obj.select("select * from soil_report,seller where soil_report.user_id=seller.seller_id ")
-            ss = obj.selectOne("select * from allocate,employee where employee.employee_id=allocate.employee_id and allocate.status='pending'")
+            ss = obj.selectOne("select * from allocate,employee where employee.employee_id=allocate.employee_id and allocate.status='free'")
             print(ss)
 
-            return render_template("admin_side/View_seller_requests.html", res=qry, data=ss)
+            return render_template("admin_side/View_soil_seller_requests.html", res=qry, data=ss)
         else:
             obj = Db()
             qry = obj.select("select * from soil_report,user where soil_report.user_id=user.user_id ")
-            ss = obj.selectOne("select * from allocate,employee where employee.employee_id=allocate.employee_id and allocate.status='pending' ")
+            ss = obj.selectOne("select * from allocate,employee where employee.employee_id=allocate.employee_id and allocate.status='free' ")
             print(ss)
-            return render_template("admin_side/View Booking Master.html", res=qry, data=ss)
+            return render_template("admin_side/View_soil_user_requests.html", res=qry, data=ss)
     else:
 
            return render_template('admin_side/view_soil_request.html')
@@ -327,6 +328,7 @@ def send_payment_seller(b,pr):
 def view_booking_user():
     db=Db()
     ss=db.select("select * from booking_master,user,product,booking where booking_master.user_id=user.user_id and booking_master.status='booked' and booking_master.master_id=booking.master_id and product.Product_id=booking.product_id")
+    print(ss)
     return render_template('admin_side/view booking_user.html',data=ss)
 
 
@@ -990,10 +992,8 @@ def add_payment():
             quantity = request.form['t3']
             pid = request.form['t2']
             print("sdfbgn", quantity, pid)
-            res = db.selectOne(
-                "select * from bank WHERE account_no='" + acc + "' and ifsc='" + ifsc + "' and person_id='" + str(
-                    session["lid"]) + "'")
-            b = db.selectOne("select quantity from product where ")
+            res = db.selectOne("select * from bank WHERE account_no='" + acc + "' and ifsc='" + ifsc + "' and person_id='" + str(session["lid"]) + "'")
+            # b = db.selectOne("select quantity from product where ")
             if res is not None:
                 # p= int(res['amount'])
                 # print(p,totalsum)
