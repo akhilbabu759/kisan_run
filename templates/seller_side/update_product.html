@@ -10,8 +10,11 @@
 <body><form action="/update_product/{{ data['Product_id'] }}" method="post"><table width="200" border="1">
   <tr>
     <th scope="row">Product Name</th>
-    <td><label for="textfield"></label>
-      <input type="text" name="textfield" id="textfield" value="{{ data['Product_name'] }}"/></td>
+    <td><select name="textfield" id="textfield" >
+            {% for i in data1 %}
+              <option value="{{ i['item_id'] }}" {% if i['item_id'] == data['item_id'] %} selected {% endif %}>{{ i['name'] }}</option>
+            {% endfor %}
+        </select></td>
   </tr>
   <tr>
     <th scope="row">Quantity</th>

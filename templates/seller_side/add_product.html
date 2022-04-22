@@ -10,8 +10,12 @@
 <body><form action="/add_product" method="post"><table width="200" border="1">
   <tr>
     <th scope="row">Product Name</th>
-    <td><label for="textfield"></label>
-      <input type="text" name="textfield" id="textfield" /></td>
+    <td>
+        <select name="textfield" id="textfield" >
+            {% for i in data %}
+              <option value="{{ i['item_id'] }}">{{ i['name'] }}</option>
+            {% endfor %}
+        </select></td>
   </tr>
   <tr>
     <th scope="row">Quantity</th>

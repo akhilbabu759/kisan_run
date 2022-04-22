@@ -25,11 +25,11 @@
       <td>&nbsp;{{ loop.index }}</td>
       <td>&nbsp;{{ i['name'] }}</td>
 
-      <td>&nbsp;&nbsp;{{ i['product_name'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['item_name'] }}</td>
       <td>&nbsp;{{ i['details'] }}</td>
-      <td>&nbsp;&nbsp;{{ i['stock'] }}</td>
-      <td>&nbsp;&nbsp;{{ i['price'] }}</td>
-     <td>&nbsp;&nbsp;<a href="/accept_seller/{{ i['request_id'] }}">Accept</a><br><a href="/reject_seller/{{ i['request_id'] }}" onclick="return confirm('Are you sure?') ">Reject</a></td>
+      <td>&nbsp;&nbsp;{{ i['Quantity'] }}</td>
+      <td>&nbsp;&nbsp;{{ i['seller_price'] }}</td>
+     <td>&nbsp;&nbsp;<a href="/accept_seller/{{ i['Product_id'] }}">Accept</a><br><a href="/reject_seller/{{ i['Product_id'] }}" onclick="return confirm('Are you sure?') ">Reject</a></td>
     </tr>
       {% endfor %}
   </table>

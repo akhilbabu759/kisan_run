@@ -1,0 +1,43 @@
+{% extends "admin_side/index.html" %}
+{% block body %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<form action="" method="post">
+<table width="200" border="03">
+  <tr>
+    <th scope="row">ITEM NAME</th>
+    <td>
+      <input type="text" name="textarea" id="textarea" cols="45" rows="5"></input>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+      <input type="submit" name="button" id="button" value="SEND" />
+    </td>
+  </tr>
+</table>
+    <br>
+    <table border="1">
+        <tr>
+            <td>SL. No.</td>
+            <td>Name</td>
+        </tr>
+        {% for i in data %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ i['name'] }}</td>
+          <td><a href="/delete_item/{{ i['item_id'] }}">Delete</a> </td>
+        </tr>
+        {% endfor %}
+    </table>
+</form>
+</body>
+</html>
+
+{% endblock %}

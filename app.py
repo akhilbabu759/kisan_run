@@ -102,6 +102,24 @@ def delete_employee(e_id):
     db.delete("delete from employee where employee_id='"+e_id+"'")
     return redirect('/view_employee')
 
+
+@app.route("/admin_add_item", methods=['get', 'post'])
+def admin_add_item():
+    if request.method=="POST":
+        name=request.form['textarea']
+        db=Db()
+        db.insert("insert into item(name) values('"+name+"')")
+        return "<script>alert('Item added');window.location='/admin_add_item';</script>"
+    db=Db()
+    res=db.select("select * from item")
+    return render_template("admin_side/add_item.html", data=res)
+
+@app.route("/delete_item/<id>")
+def delete_item(id):
+    db=Db()
+    db.delete("delete from item where item_id='"+id+"'")
+    return redirect("/admin_add_item")
+
 @app.route('/view_soil_request',methods=['get','post'])
 def view_soil_request():
     db = Db()
@@ -523,20 +541,20 @@ def notification():
 @app.route('/view_seller_request')
 def view_seller_request():
     db=Db()
-    prd=db.select("select * from seller,product where seller.seller_id=product.seller_id and status='pending'")
+    prd=db.select("select product.*, seller.name, item.name as item_name from seller,product, item where product.item_id=item.item_id and seller.seller_id=product.seller_id and status='pending'")
     return render_template("admin_side/view_seller_request.html",res=prd)
 
 
 @app.route('/accept_seller/<s_id>')
 def accept_seller(s_id):
     db=Db()
-    db.update("update product_request set status='accepted' where request_id='"+s_id+"'")
+    db.update("update product set status='accepted' where Product_id='"+s_id+"'")
     return ''' <script> alert("Accepted");window.location = "/view_seller_request"  </script>'''
 
 @app.route('/reject_seller/<s_id>')
 def reject_seller(s_id):
     db=Db()
-    db.delete("delete from product_request where request_id='"+s_id+"'")
+    db.delete("delete from product where Product_id='"+s_id+"'")
     return ''' <script> alert("Deleted");window.location = "/view_seller_request"  </script>'''
 
 
@@ -544,12 +562,34 @@ def reject_seller(s_id):
 @app.route('/view_accepted_seller')
 def view_accepted_seller():
     db=Db()
-    res=db.select("select * from seller,product where seller.seller_id=product.seller_id and status='accepted'")
+    res=db.select("select product.*, seller.name, item.name as item_name, allocate.status as astatus, allocate.`S.No` from seller inner join product on  seller.seller_id=product.seller_id inner join  item on product.item_id=item.item_id left join allocate on product.Product_id=allocate.request_id  where product.status='accepted'")
     return render_template("admin_side/view_accepted_seller.html",res=res)
 
 
 
+@app.route("/allocate_emp_seller/<id>", methods=['get', 'post'])
+def allocate_emp_seller(id):
+    if request.method=="POST":
+        eid=request.form['select']
+        db=Db()
+        db.insert("insert into allocate(request_id, employee_id, type, status, date) values('"+id+"', '"+eid+"', 'product', 'pending', curdate())")
+        return redirect("/view_accepted_seller")
+    db=Db()
+    res=db.select("select * from employee")
+    return render_template("admin_side/product_allocation_to_employee.html", data=res)
 
+@app.route("/collected_entry/<sno>")
+def collected_entry(sno):
+    db=Db()
+    res=db.selectOne("select product.Quantity, product.item_id from product, allocate where allocate.request_id=product.Product_id and allocate.`S.No`='"+sno+"'")
+    res2=db.selectOne("select * from pro_quantity where item_id='"+str(res['item_id'])+"'")
+    print("Hlooo   ", str(res['item_id']), "   ", str(res['Quantity']))
+    if res2 is None:
+        db.insert("insert into pro_quantity(item_id, quantity) values('"+str(res['item_id'])+"', '"+str(res['Quantity'])+"')")
+    else:
+        db.update("update pro_quantity set quantity=quantity+"+str(res['Quantity'])+" where id='"+str(res2['id'])+"'")
+    db.update("update allocate set status='free' where `S.No`='"+sno+"'")
+    return redirect("/view_accepted_seller")
 #######################################################################seller_side
 
 
@@ -719,12 +759,14 @@ def add_product():
         db.insert("insert into product VALUES ('','"+str(session['lid'])+"','"+pname+"','"+quantity+"','"+details+"','"+price+"',0,curdate(),'pending')")
         return '''<script>alert('product added');window.location="/seller_home"</script>'''
     else:
-        return render_template('seller_side/add_product.html')
+        db=Db()
+        res=db.select("select * from item")
+        return render_template('seller_side/add_product.html', data=res)
 
 @app.route('/view_product')
 def view_product():
     db=Db()
-    ss=db.select("select * from product where seller_id='"+str(session['lid'])+"'")
+    ss=db.select("select product.*, item.name from product, item  where product.item_id=item.item_id and seller_id='"+str(session['lid'])+"'")
     return render_template('seller_side/view_product.html',data=ss)
 
 @app.route('/update_product/<b>',methods=['get','post'])
@@ -735,12 +777,13 @@ def update_product(b):
         details = request.form['textfield3']
         price = request.form['textfield4']
         db = Db()
-        db.update("update product set Product_name='"+pname+"',Quantity='"+quantity+"',details='"+details+"',seller_price='"+price+"' where Product_id='"+b+"'")
+        db.update("update product set item_id='"+pname+"',Quantity='"+quantity+"',details='"+details+"',seller_price='"+price+"' where Product_id='"+b+"'")
         return redirect('/view_product')
     else:
         db=Db()
         ss=db.selectOne("select * from product where Product_id='"+b+"'")
-        return render_template('seller_side/update_product.html',data=ss)
+        res = db.select("select * from item")
+        return render_template('seller_side/update_product.html',data=ss, data1=res)
 
 @app.route('/delete_product_seller/<b>')
 def delete_product_seller(b):
