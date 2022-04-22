@@ -43,7 +43,7 @@ def login():
 
 @app.route('/home')
 def home():
-    return render_template("admin_side/admin home.html")
+    return render_template("admin_side/index.html")
 
 @app.route('/add_employee',methods=['get','post'])
 def add_employee():
@@ -603,7 +603,7 @@ def edit_seller():
 
 @app.route('/seller_home')
 def center_home():
-    return render_template("seller_side/seller home.html")
+    return render_template("seller_side/seller_index.html")
 
 
 #
@@ -798,7 +798,7 @@ def view_payment_seller():
 
 @app.route('/user_home')
 def user_home():
-        return render_template("user_side/user_home.html")
+        return render_template("user_side/user_index.html")
 
 @app.route('/add_user', methods=['get', 'post'])
 def add_user():
@@ -845,11 +845,10 @@ def center_update(c_id):
             locality = request.form['local']
             district = request.form['district']
             phn = request.form['ph']
+            print(phn)
             # email=request.form['eml']
             # passw= request.form['pas']
-            db.update(
-                "update user set user_name = '" + name + "',street = '" + street + "',locality = '" + locality + "', district = '" + district + "', phone_number='" + phn + "'  where user_id ='" + str(
-                    session['lid']) + "'")
+            db.update("update user set user_name = '" + name + "',street = '" + street + "',locality = '" + locality + "', district = '" + district + "', phone_number='" + phn + "'  where user_id ='" + str(session['lid']) + "'")
             # db.update("update login set user_name='" + name + "',password='"+passw+"' where login_id='"+str(session["lid"])+"'")
             return ''' <script> alert("Updated Sucessfully");window.location = "/user_view_profile"  </script>'''
         else:
@@ -964,6 +963,9 @@ def book_mode(mid):
             if mode == 'offline':
                 db = Db()
                 db.update("update booking_master set status='cash on delivery' where master_id='" + mid + "' ")
+                # qut=db.selectOne("select quantity from booking where master_id='" + mid + "' ")
+                # prid = db.selectOne("select product_id from booking where master_id='" + mid + "' ")
+                # db.update("update ")
                 return '''<script>alert('THANK YOU !!cash on delivery');window.location="/user_home"</script>'''
             else:
                 db = Db()

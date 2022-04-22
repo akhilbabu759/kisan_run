@@ -1,3 +1,5 @@
+{% extends "user_side/user_index.html" %}
+{% block body %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -40,17 +42,14 @@
 
 
       <tr>
-        <td colspan="2"><blockquote>
-          <blockquote>
-            <blockquote>
+        <td colspan="2">
               <p>
                 <a href="/user_update/{{ res['user_id'] }}">change details</a>
               </p>
-            </blockquote>
-          </blockquote>
-        </blockquote></td>
+            </td>
     </table>
   </form>
 </blockquote>
 </body>
 </html>
+{% endblock %}
